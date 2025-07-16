@@ -1,0 +1,28 @@
+/*
+* * * * * * * * * * * * * * * * * * * * * * * * *
+* Author: Eduardo de Sá Coêlho Ribeiro Costa   	*
+* Github: edudscrc							   	*
+*											   	*
+* Waybar v0.12.0						   	    *
+* * * * * * * * * * * * * * * * * * * * * * * * *
+*/
+
+[{
+    "name": "Desktop",
+    "output": "eDP-1",
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": []
+        }
+        
+    },
+
+    "include": [
+		"~/.config/waybar/dop_conf.json"
+	]
+}
+]

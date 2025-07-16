@@ -1,0 +1,182 @@
+{
+  "spacing": 12,
+  "margin": 0,
+  "modules-left": ["custom/archicon", "hyprland/workspaces"],
+  "modules-center": [
+    "custom/paddw",
+    "hyprland/window" // window title
+  ],
+  "modules-right": [
+    "hyprland/language",
+    "battery",
+    "pulseaudio#sound",
+    "group/group-end",
+    "clock"
+  ],
+
+  "custom/archicon": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "wofi --show drun"
+  },
+  "custom/spotify": {
+    "format": "{$}",
+    "exec": "/usr/bin/python3 ~/.config/waybar/assets/mediaplayer.py --player spotify",
+    "return-type": "json",
+    "on-click": "playerctl -p spotify play-pause",
+    "on-scroll-up": "playerctl -p spotify next",
+    "on-scroll-down": "playerctl -p spotify previous"
+  },
+
+  "clock": {
+    "format": "{:%a %d %b %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "format": {
+        "months": "<span color='#FFFFFF'><b>{}</b></span>",
+        "days": "<span color='#FFFFFF'><b>{}</b></span>",
+        "weekdays": "<span color='#FFFFFF'><b>{}</b></span>",
+        "today": "<span color='#FFFFFF'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click": "shift_reset",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-full": "{icon}  {capacity}%",
+    "format-charging": "  {capacity}%",
+    "format-plugged": "  {capacity}%",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "custom/wl-gammarelay-brightness": {
+    "format": "󰃠 {}%",
+    "tooltip": false,
+    "exec": "wl-gammarelay-rs watch {bp}",
+    "on-scroll-up": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d +0.02",
+    "on-scroll-down": "busctl --user -- call rs.wl-gammarelay / rs.wl.gammarelay UpdateBrightness d -0.02"
+  },
+  "pulseaudio#sound": {
+    "format": "{icon} {volume}%",
+    "format-muted": " {volume}%",
+    "format-icons": {
+      "default": ["", "", " "]
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol",
+    "tooltip": false
+  },
+  "group/group-end": {
+    "orientation": "horizontal",
+    "modules": ["bluetooth", "network"],
+    "spacing": 15
+  },
+  "hyprland/language": {
+    "format": "<span>{}</span>",
+    "format-ru": "ru",
+    "format-en": "eng"
+  },
+  "bluetooth": {
+    "format-disabled": "",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱",
+    "on-click-right": "bluetoothctl disconnect",
+    "on-click": "kitty -e bluetoothctl",
+    "tooltip-format-connected": "{device_alias}\t{device_address}"
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": " ⚠ "
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "tooltip": false,
+    "min-length": 5,
+
+    "rewrite": {
+      // Desktop
+      "": "<span foreground='#ffffff'> </span> Hyprland",
+
+      // Terminal
+      "~": "  Terminal",
+      "zsh": "  Terminal",
+      "kitty": "  Terminal",
+
+      "tmux(.*)": "<span foreground='#ffffff'> </span> Tmux",
+
+      // Browser
+
+      "(.*)Mozilla Firefox": "<span foreground='#ffffff'>󰈹 </span> Firefox",
+      "(.*) — Mozilla Firefox": "<span foreground='#ffffff'>󰈹 </span> $1",
+
+      "(.*)Zen Browser": "<span foreground='#ffffff'>󰺕 </span> Zen Browser",
+      "(.*) — Zen Browser": "<span foreground='#ffffff'>󰺕 </span> $1",
+
+      // Development
+
+      "(.*) - VSCodium": "<span foreground='#ffffff'>󰨞 </span> $1",
+      "(.*)VSCodium": "<span foreground='#ffffff'>󰨞 </span> Visual Studio Code",
+
+      "nvim": "<span foreground='#ffffff'> </span> Neovim",
+      "nvim (.*)": "<span foreground='#ffffff'> </span> $1",
+
+      "vim": "<span foreground='#ffffff'> </span> Vim",
+      "vim (.*)": "<span foreground='#ffffff'> </span> $1",
+
+      // Media
+
+      "(.*)Spotify": "<span foreground='#ffffff'> </span> Spotify",
+      "(.*)Spotify Premium": "<span foreground='#ffffff'> </span> Spotify Premium",
+
+      "OBS(.*)": "<span foreground='#ffffff'> </span> OBS Studio",
+
+      "VLC media player": "<span foreground='#ffffff'>󰕼 </span> VLC Media Player",
+      "(.*) - VLC media player": "<span foreground='#ffffff'>󰕼 </span> $1",
+
+      "(.*) - mpv": "<span foreground='#ffffff'> </span> $1",
+
+      "qView": "  qView",
+
+      "(.*).jpg": "  $1.jpg",
+      "(.*).png": "  $1.png",
+      "(.*).svg": "  $1.svg",
+
+      // Social
+
+      "vesktop": "<span foreground='#ffffff'> </span> Discord",
+
+      "• Discord(.*)": "Discord$1",
+      "(.*)Discord(.*)": "<span foreground='#ffffff'> </span> $1Discord$2",
+
+      // Documents
+
+      "ONLYOFFICE Desktop Editors": "<span foreground='#ffffff'> </span> OnlyOffice Desktop",
+
+      "(.*).docx": "<span foreground='#ffffff'> </span> $1.docx",
+      "(.*).xlsx": "<span foreground='#ffffff'> </span> $1.xlsx",
+      "(.*).pptx": "<span foreground='#ffffff'> </span> $1.pptx",
+      "(.*).pdf": "<span foreground='#ffffff'> </span> $1.pdf",
+
+      // System
+      "Authenticate": "  Authenticate"
+    }
+  },
+  "custom/pipe": {
+    "format": "|",
+    "tooltip": false
+  }
+}

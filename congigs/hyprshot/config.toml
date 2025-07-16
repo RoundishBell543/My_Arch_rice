@@ -1,0 +1,3 @@
+save_dir = "/home/archuser/d/"
+file_prefix "screenshots"
+file_format = "jpeg"
